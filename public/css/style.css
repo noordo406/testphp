@@ -100,13 +100,16 @@ body {
 .container .contenu button:nth-child(1) {
   background-color: orange;
 }
-.container .contenu button:nth-child(2) {
+.container .contenu button.supprimer {
   background-color: red;
 }
 .container .contenu button.ajouter {
   margin-top: 20px;
   background-color: green;
   width: 100%;
+}
+.container .contenu form > .imgpreview {
+  height: 160px;
 }
 .container footer {
   background-color: var(--dark);

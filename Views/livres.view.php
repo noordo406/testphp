@@ -1,4 +1,4 @@
-<?php ob_start()?>
+<?php ob_start() ?>
 
 <table>
     <tr>
@@ -10,13 +10,16 @@
     <?php
     for ($i = 0; $i < count($livres); $i++) : ?>
         <tr>
-            <td><img src="<?=URL?>public/images/<?= $livres[$i]->getImage(); ?>" alt=""></td>
-            <td><a href="<?=URL?>livres/l/<?= $livres[$i]->getId();?>"><?= $livres[$i]->getTitre(); ?></a></td>
+            <td><img src="<?= URL ?>public/images/<?= $livres[$i]->getImage(); ?>" alt=""></td>
+            <td><a href="<?= URL ?>livres/l/<?= $livres[$i]->getId(); ?>"><?= $livres[$i]->getTitre(); ?></a></td>
             <td><?= $livres[$i]->getNbPages(); ?></td>
             <td>
                 <!-- Divisez la colonne "Actions" en deux sous-colonnes -->
-                <button>Modifier</button>
-                <button>Supprimer</button>
+                <a href="<?= URL ?>livres/m/<?= $livres[$i]->getId(); ?>"><button>Modifier</button></a>
+                <form method="POST" action="<?= URL ?>livres/s/<?= $livres[$i]->getId(); ?>" onSubmit="return confirm('Voulez-vous vraiment supprimer le livre ?');">
+                    <button class="supprimer">Supprimer</button>
+                </form>
+
             </td>
         </tr>
     <?php endfor; ?>

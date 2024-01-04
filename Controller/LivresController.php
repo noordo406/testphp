@@ -55,4 +55,30 @@ class LivresController{
         else return ($random."_".$file['name']);
     }
 
+    public function suppressionLivre($id){
+        $nomImage = $this->livreManager->getLivreById($id)->getImage();
+        $target_file = "public/images/".$nomImage;
+        if(file_exists($target_file)) unlink($target_file);
+        $this->livreManager->suppressionLivreBD($id);
+        header('Location: '.URL."livres");
+    }
+
+    public function modifierLivre($id){
+        $livre = $this->livreManager->getLivreById($id);
+        require "Views/modifierLivre.view.php";
+    }
+
+    public function modifierLivreValidation(){
+        $imageActuelle = $this->livreManager->getLivreById($_POST["identifiant"])->getImage();
+        $file = $_FILES['image'];
+        if ($file['size'] > 0) {
+            unlink("public/images/".$imageActuelle);
+            $repertoire = "public/images/";
+            $nomImageAjoutee = $this->ajoutImage($file, $repertoire);
+        } else {
+            $nomImageAjoutee = $imageActuelle;
+        }
+        $this->livreManager->modifLivreBD($_POST['identifiant'], $_POST['titre'], $_POST['nbPages'], $nomImageAjoutee);
+        header('Location: '.URL."livres");
+    }
 }
